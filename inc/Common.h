@@ -13,7 +13,7 @@
 typedef bool (*Func_I_I_B)(int, int);
 typedef int(*Func_I_I_I_I_I)(int, int, int, int);
 typedef void(*Func_I_I_V) (int, int);
-typedef int(*Func_I_I_I)(int, int, int);
+typedef int(*Func_I_I_I)(int, int);
 int Abs(int x);
 
 int Sign(int x);

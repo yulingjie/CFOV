@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Visibility.h"
 #include "RayCastVisibility.h"
+#include "ShadowCastVisibility.h"
 #include "LevelPoint.h"
 #include <plog/Log.h>
 #include <math.h>
@@ -85,6 +86,10 @@ int GetDistance(int x1, int y1, int x2, int y2)
 	int rt = x*x + y*y;
 	return (int)sqrt(rt);
 }
+int GetDistance_I_I(int x, int y)
+{
+	return (int)sqrt(x*x + y*y);
+}
 void DoFov()
 {
 	// unseen everything
@@ -113,6 +118,10 @@ Visibility* GetRayCastVisibility()
 	Size sz(MAP_WIDTH,MAP_HEIGHT);
 	return new RayCastVisibility(sz, BlocksLight, SetVisible, GetDistance);
 }
+Visibility* GetShadowRaycastVisibility()
+{
+	return new ShadowCastVisibility(BlocksLight, SetVisible, GetDistance);
+}
 void MovePlayer(int dx, int dy)
 {
 	int px = map.GetPlayerX();
@@ -134,7 +143,7 @@ int main(int argc, char** argv)
 	plog::init(plog::debug, "test.txt");
 	LOGD << "Hello Log!";
 	map.CreateMap();
-	vs = GetRayCastVisibility();
+	vs = GetShadowRaycastVisibility();
 	if (init_curses() != 0) return -1;
 	int k;
 	
