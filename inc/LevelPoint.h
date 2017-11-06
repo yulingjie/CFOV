@@ -7,6 +7,11 @@ public:
 	{
 
 	}
+	LevelPoint()		
+		:_x(0),_y(0)
+	{
+		
+	}
 	int X() const
 	{
 		return _x;

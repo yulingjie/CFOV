@@ -5,6 +5,7 @@
 #include "Visibility.h"
 #include "RayCastVisibility.h"
 #include "ShadowCastVisibility.h"
+#include "DiamondWallsVisibility.h"
 #include "LevelPoint.h"
 #include <plog/Log.h>
 #include <math.h>
@@ -122,6 +123,11 @@ Visibility* GetShadowRaycastVisibility()
 {
 	return new ShadowCastVisibility(BlocksLight, SetVisible, GetDistance);
 }
+Visibility* GetDiamondWallsVisibility()
+{
+	return new DiamondWallsVisibility(BlocksLight, 
+		SetVisible, GetDistance_I_I);
+}
 void MovePlayer(int dx, int dy)
 {
 	int px = map.GetPlayerX();
@@ -140,10 +146,10 @@ void MovePlayer(int dx, int dy)
 }
 int main(int argc, char** argv)
 {	
-	plog::init(plog::debug, "test.txt");
+	plog::init(plog::none, "test.txt");
 	LOGD << "Hello Log!";
 	map.CreateMap();
-	vs = GetShadowRaycastVisibility();
+	vs = GetDiamondWallsVisibility();
 	if (init_curses() != 0) return -1;
 	int k;
 	
